@@ -17,4 +17,8 @@ export const typeDefs = gql`
         products: [Product]!
         product(id: String!): Product
     }
+    type Mutation {
+        addBook(title: String!, author: String!): Book!
+        updateBook(title: String!, author: String!): Book!
+    }
 `;

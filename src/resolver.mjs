@@ -16,4 +16,17 @@ export const resolvers = {
             return founded || null;
         }
     },
+    Mutation: {
+        addBook: (root, args, context) => {
+            const { title, author } = args
+            books.push({ title, author })
+            return { title, author }
+        },
+        updateBook: (root, args, context) => {
+            const { title, author } = args
+            let book = books.find(book => book.title == title)
+            book = { ...book, title, author }
+            return book
+        }
+    }
 };
