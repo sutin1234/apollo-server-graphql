@@ -1,9 +1,9 @@
-import { books } from "./data/books.mjs";
-import { products } from './data/products.mjs'
+import { books } from "../../data/books.mjs";
+import { products } from '../../data/products.mjs'
 
 export const resolvers = {
     Query: {
-        books: () => books,
+        books: books,
         book: (arent, args, context) => {
             const { id } = args;
             const founded = books.find(item => item.id == id)
@@ -18,15 +18,20 @@ export const resolvers = {
     },
     Mutation: {
         addBook: (root, args, context) => {
-            const { title, author } = args
-            books.push({ title, author })
-            return { title, author }
+            const { params } = args
+            console.log('added book ', params)
+            books.push(params)
+            return books[books.length - 1];
         },
         updateBook: (root, args, context) => {
-            const { title, author } = args
+            const { params } = args
             let book = books.find(book => book.title == title)
-            book = { ...book, title, author }
-            return book
+            console.log('founded book ', book)
+            if (book) {
+                book = { ...book, ...params }
+                return book
+            }
+            return null;
         }
     }
 };

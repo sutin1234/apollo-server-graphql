@@ -1,5 +1,5 @@
-import { gql } from 'apollo-server';
-export const typeDefs = gql`
+import { buildSchema } from 'graphql'
+export const schemas = buildSchema(`
     type Book {
         title: String!
         author: String!
@@ -18,7 +18,12 @@ export const typeDefs = gql`
         product(id: String!): Product
     }
     type Mutation {
-        addBook(title: String!, author: String!): Book!
-        updateBook(title: String!, author: String!): Book!
+        addBook(params: BookInput!): Book!
+        updateBook(params: BookInput!): Book!
     }
-`;
+
+    input BookInput {
+        title: String!
+        author: String!
+    }
+`);
